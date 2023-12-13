@@ -1,0 +1,92 @@
+
+/* This code is not compilant !!
+ It's just a doministration of the while(1) loop content that should be added when running the python script.
+
+ 1-Initiate a project using CubeMX.
+ 2-Enable a UART communication.
+ 3-Connect the STM32 Board and Uplad the code.
+ 4-Check the Port number, and adapt the Python script according to that number.(press Windows+x then select Device manager).
+ 5-Run the Python Script to monitore the data stream.
+  
+ PS: Ensure that u have already enabled a UART communication between your PC and the STM32 trought the UART2 (the one connected
+ to the JTAG debugger).
+*/
+
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+
+
+  /* USER CODE BEGIN 2 */
+
+  bool data_stream_active = false;
+
+  // Read data from the PC (Python code request).
+  while (1) {
+      HAL_UART_Receive(&huart2, (uint8_t *)Rx_Buffer, sizeof(Rx_Buffer), 100);
+      // Check the request
+      if (Rx_Buffer[0] == 103) { // if the user enters the 'g' character
+          if (!data_stream_active) {
+              sprintf(Tx_Buffer, "Data stream initiated\n");
+              HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+              data_stream_active = true;
+          } else {
+              sprintf(Tx_Buffer, "Data stream already active\n");
+              HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+          }
+      } else if (Rx_Buffer[0] == 115) { // if the user enters the 's' character
+          if (data_stream_active) {
+              sprintf(Tx_Buffer, "Data stream stopped\n");
+              HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+              data_stream_active = false;
+          } else {
+              sprintf(Tx_Buffer, "Data stream not active\n");
+              HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+          }
+      } else if (Rx_Buffer[0] != '\0') { // if it's not 'g' or 's' and it's not empty.
+          // Handle invalid request.
+          sprintf(Tx_Buffer, "Invalid Request\n");
+          HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+      }
+
+      // If the data stream is active, proceed with data transmission
+      while (data_stream_active) {//This while loop must be transformed as a task (Welcome to freeRtos). As well as the outer while loop.
+          // Generate random values for x and y
+          int x = rand() % 1000; // Generate a random value between 0 and 999 for x
+          int y = rand() % 1000; // Generate a random value between 0 and 999 for y
+          int z = rand() % 1000; // Generate a random value between 0 and 999 for y
+
+          // Create a string with the format "x,y,z\n"
+          sprintf(Tx_Buffer, "%d,%d,%d\n", x, y,z);
+
+          // Transmit the string over UART
+          HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+
+          // Introduce some delay before the next transmission (adjust the value based on your requirements)
+          HAL_Delay(100);
+      }
+  }
+}
+

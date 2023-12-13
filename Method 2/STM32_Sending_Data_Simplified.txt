@@ -1,0 +1,67 @@
+
+#include "main.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include "string.h"
+
+char Tx_Buffer[50];
+uint8_t Rx_Buffer[1];
+
+
+
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+
+
+int main(void)
+{
+  
+  HAL_Init();
+
+  SystemClock_Config();
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+  /* USER CODE BEGIN 2 */
+
+    // Read data from the PC (Python code request).
+    while (1) {
+        HAL_UART_Receive(&huart2, (uint8_t *)Rx_Buffer, sizeof(Rx_Buffer), 100);
+        // Check the request
+        if (Rx_Buffer[0] == 103) { // if the user enters the 'g' character
+            sprintf(Tx_Buffer, "(From STM32): Starting data stream.\n");
+            HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+            break; // Move to the second while loop
+        } else if (Rx_Buffer[0] != '\0') { // if it's not 'g' and it's not empty.
+            // Handle invalid request.
+            sprintf(Tx_Buffer, "(From STM32): Invalid Request\n");
+            HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+        }
+    }
+
+  while (1) {
+      // Check if 's' is received to stop data stream
+      HAL_UART_Receive(&huart2, (uint8_t *)Rx_Buffer, sizeof(Rx_Buffer), 100);
+      if (Rx_Buffer[0] == 115) { // 's' is pressed to stop data stream
+          sprintf(Tx_Buffer, "(From STM32) : No data to be transmitted. \n");
+          HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+          break; // Leave the while loop
+      }
+
+      // Generate random values for x and y
+      int x = rand() % 1000; // Generate a random value between 0 and 999 for x
+      int y = rand() % 1000; // Generate a random value between 0 and 999 for y
+
+      // Create a string with the format "x,y\n"
+      sprintf(Tx_Buffer, "%d,%d\n", x, y);
+
+      // Transmit the string over UART
+      HAL_UART_Transmit(&huart2, (uint8_t *)Tx_Buffer, strlen(Tx_Buffer), 100);
+
+      // Introduce some delay before next transmission (adjust the value based on your requirements)
+      HAL_Delay(500);
+  }
+}
+

@@ -1,0 +1,28 @@
+
+This Method exploits the knowledge, techniques and functionalities gained from the previous tests (Methods) to perform the main puropose. Which is defined as follows :
+
+
+First, I need to implement a script responsible of receiving real time data stream for a prefixed amount of time alongside the exact timstamp where they are captured structure a CSV file to transform those info into this file (data source is a sensor connected with my STM32 which is contiounsly sending data to my PC throught UART using port COM7 with a baude rate fixed at 9600b/s).
+keep in mind that at each time we run the script we name the csv file (the purpose behind is to build a dataset and annotate it). we will label the files and save them under a folder placed in the working directory with the name "Dataset_CSVs" as follows: Motionx_Exampley
+where x could be one of the motions classes (pass, shot, long pass) and y is the number representing an id for the example.  
+ 
+PS: the data have been received  have the following format :
+time_stamp,ax,ay,az. where ax,ay,az are acceleration over the 3 axis x, y, and z. 
+
+second, I will developp a second script that will exploit those csv files to plot the data 
+we will have 3 signals in the same plot those signals are a function of the timpestamp where they are captured. then save the figures under a folder in the working directory with the name "Dataset_figures" (the title for the figure is the same as the csv file representing it)
+
+Before diving into implementation let's define together  the general structure and the key parameters for the solution described above which consist of the two python scripts working together to visualize and annotate data from a sensor.
+
+I think that the process will be as follows :
+1-First fixe the amount of time in which we will keep appending to the csv file for that we have to fixe the output data rate (which is defined by the sensor) and the window length (how much sample we need to capture).
+2-Implemet the first script in order to extract data from the serial com according to the fixed parameters and stream it to the csv file, and finally save the files under the folder "dataset_CSVs".
+3-Implement the second script which will be responsible of explote the csv files to serve a labeled dataset.
+
+So regarding this design what do you consider wrong or miss concepted ?
+
+If you need more info or you have not understand some components of the proposed solution you can ask me to clarify.
+
+You can also suggest ideas or recommande additional steps in order to fulfill the requierements .  
+
+and finally, if everithing is clear can we begin a step by step process in order to refine the design and implement the solution.

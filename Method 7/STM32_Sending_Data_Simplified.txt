@@ -1,0 +1,61 @@
+
+/* This code is not compilant !!
+ It's just a doministration of the while(1) loop content that should be added when running the python script.
+
+ 1-Initiate a project using CubeMX.
+ 2-Enable a UART communication.
+ 3-Connect the STM32 Board and Uplad the code.
+ 4-Check the Port number, and adapt the Python script according to that number.(press Windows+x then select Device manager).
+ 5-Run the Python Script to monitore the data stream.
+  
+ PS: Ensure that u have already enabled a UART communication between your PC and the STM32 trought the UART2 (the one connected
+ to the JTAG debugger).
+*/
+
+#Am changing the data format. Am considering a one dimension input(Just to illustrate the animation class utilities).
+
+#include "stdlib.h"
+#include "stdio.h"
+#include "string.h"
+
+
+UART_HandleTypeDef huart2;
+
+
+// Create a string with the format "x\n"
+char buffer[50];
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+
+
+int main(void)
+{
+
+  HAL_Init();
+
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+
+  while (1) {
+      // Generate random values for x and y
+      int x = rand() % 1000; // Generate a random value between 0 and 999 for x
+      int y = rand() % 1000; // Generate a random value between 0 and 999 for y
+
+      sprintf(buffer, "%d\n", x);
+
+      // Transmit the string over UART
+      HAL_UART_Transmit(&huart2, (uint8_t *)buffer, strlen(buffer), 100);
+
+      HAL_Delay(500);  // Adjust the delay based on your requirements
+  }
+
+  /* USER CODE END 3 */
+}
+

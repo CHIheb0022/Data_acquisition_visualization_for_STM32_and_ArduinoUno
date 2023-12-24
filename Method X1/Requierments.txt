@@ -1,0 +1,20 @@
+
+In this approach, I will adhere to the requirements outlined in the previous method (X0). 
+However, I aim to consolidate two scripts, namely "Capture_for_5_seconds&send_to_CSV_Arduino.py" and "Capture_for_5_seconds&send_to_CSV".
+To achieve this, the following implementations are needed:
+
+-Creation of a generic function tasked with identifying the board in use (STM32 or Arduino) and returning a Serial object. This function
+will facilitate dynamic data collection irrespective of the device in operation.
+
+-Establishment of a procedure to configure the window length and initiate data capture.
+
+-Enhancement of modularity by defining modules that will be implemented in a main script instead of separate scripts.
+
+-Development of STM32 code to enable data streaming without requiring explicit requests for launching or blocking.
+
+-For both boards the data is always streaming trought the UART port. The data capture (starting point)
+is triggered on a specific user input (Here am using the space bare). This is ensured thanks to the keyboard library.   
+
+-Enhance the Plot_CSVs.py script to include Gyroscope data (Gx,Gy,Gz).   
+
+PS: In this version, examples with the prefix v2 present the data plotted against the sample number.

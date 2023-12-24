@@ -54,7 +54,7 @@ with open(file_path, mode='w', newline='') as csv_file:
     csv_writer = csv.writer(csv_file)
 
     # Write a header to the CSV file
-    csv_writer.writerow(["Timestamp (Unix)", "ax", "ay", "az"])
+    csv_writer.writerow(["Timestamp (Unix)", "ax", "ay", "az","gx","gy","gz"])
 
     try:
 

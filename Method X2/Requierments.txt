@@ -1,0 +1,31 @@
+This method use the code source provided by shawn as part of his workshops with edge impulse.
+Here a link to the Github repository: https://github.com/edgeimpulse/tool-data-collection-csv/tree/main
+
+
+This method provide the following functionalities: 
+    Am adapting this code using a 2s window instead of 1s (200 samples with 10ms SAMPLING_PERIOD) 
+    Data collection is triggered each 2s instead of 1s in the original version and an led is set high while
+    samples are collected (for vizualization purpose to get correct motion examples)
+    At the end of each example (200 samples) we set a white line. This line will be interpreted by the python script
+    as the end of the CSV and the biggening of a new example. 
+    The python script works as a CLI where we can set: 
+        Port number : -p parameter 
+        Baud rate : -b 
+        Target folder : -d 
+        Data label : -l
+
+CSV Data Collection Example:
+Collection of data collection examples that store raw data samples as comma-separated values (CSV) files to be uploaded to Edge Impulse.
+
+For custom sensor and custom board data collection, the data forwarder is likely the easiest method. 
+However, if you require the ability to trigger collection via hardware (e.g. physical button) or you want to 
+trigger collection each 2s or you do not have a USB connection, the data forwarder will not work. 
+Use the examples in this repository as a starting point for collecting data in .csv files.
+
+CSV Filename:
+Your CSV files can be named any way you like. You can always adjust labels in the Edge Impulse Studio.
+However, if you would like the Studio to automatically read the label, you can prepend the label to the
+front of the filename. For example: <label>.<unique-id>.csv
+
+
+

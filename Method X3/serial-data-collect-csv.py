@@ -121,9 +121,11 @@ print("Connected to {} at a baud rate of {}".format(port, baud))
 print("Press 'ctrl+c' to exit")
 
 
-# Make output directory  //ADDED by chiheb: I was tired repeating the motion every 2s. The original script 
-#                          keeping adding examples to the folder (representing a class) and once we stop it.
-#                          add run it again to gather more examples for the same class it does not indicate how much examples we have already.     
+
+
+# Make output directory // ADDED by chiheb: I was tired repeating the motion every 2s. The original script 
+#                         keeping adding examples to the folder (representing a class) and once we stop it.
+#                         add run it again to gather more examples for the same class it does not indicate how much examples we have already.     
 try:
     os.makedirs(out_dir)
 except FileExistsError:

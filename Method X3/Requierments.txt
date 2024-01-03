@@ -1,0 +1,23 @@
+I have realised that the sensor measurments in the examples collected using Method X2 are static.
+Meaning that for all eamples let's say the left-right class the values are constant (they are changing from an example to another)
+but in the one example we can not visualize any signal variation for all metrics (ax,ay,az,gx,gy,gz).
+Here you can see the issue am describing:https://studio.edgeimpulse.com/studio/328375/acquisition/training?page=1   
+
+
+In fact this is due to the copy pasted arduino code wich is specific to the LSM6N sensor's library. The LSM6N is the IMU
+provided in the Arduino BLE Sense 33.
+
+
+So in this method I have udapted the Arduino code to match the hardware am using MPU9025.
+
+Changes will cover the Arduino_Sending_Data_Simplified.txt and the dataset_CSVs folder  
+
+I have also udapted the Plot_CSVs script to the new CSV file format. 
+
+Creating Folders for each classe and still manual. The folder path must be provided when runing the script.
+
+Starting and Ending Examples should be removed (it contains sammples < 200). Since we are appending to the first and last csv files
+examples that could be missing the first samples or the last samples.
+Removal is ensured manualy (checking file size on KB and delet the files with minor size)
+
+->We can resolve this issue using a script (merged to the one collecting the data or separetly) to check if we have 200 samples at each example.

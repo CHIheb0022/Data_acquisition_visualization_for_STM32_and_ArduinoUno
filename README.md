@@ -38,6 +38,8 @@ The repository is structured into separate methods, each representing a differen
 ## Notable Achievements
 
 Thanks to Method X2, real MPU9250 data was collected, aiding in the creation of a gesture recognition model capable of classifying 4 different hand gestures (idle, left_right, back_forth, up_down). This serves as the initial step towards developing a sophisticated smart embedded solution for soccer player activity recognition. These methods offer a solid foundation and flexibility for various use cases.
+
 - **A Glimpse to the real data collected using method X2**:
-![Screenshot 2024-04-08 020010](https://github.com/CHIheb0022/Data-visualization-for-STM32/assets/99857162/d9e68d50-2d4a-4501-ba82-d3d34353f8fb)
+![Screenshot 2024-04-08 022225](https://github.com/CHIheb0022/Data-visualization-for-STM32/assets/99857162/a08edcfc-a039-4735-a920-bcc0fbcc4557)
+
 

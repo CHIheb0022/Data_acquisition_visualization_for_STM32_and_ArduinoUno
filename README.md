@@ -26,10 +26,13 @@ The repository is structured into separate methods, each representing a differen
 - A description of the method in a TXT file, acting as the method's README.
 
 ## Examples
-
-![Acceleration data](ARD_Example7.png)
+- **Acceleration data as .img**:
+![ARD_Example7](https://github.com/CHIheb0022/Data-visualization-for-STM32/assets/99857162/a1827e3a-be6e-4261-bef6-3b8981b34d78)
+- **Acceleration & Gyroscope data as .img**:
 ![Acceleration & Gyroscope data](Example7.png)
-![Screenshot 2024-04-08 020010](https://github.com/CHIheb0022/Data-visualization-for-STM32/assets/99857162/41cfa1c1-e02a-49a2-81d3-bc324c3f1708)
+- **Acceleration & Gyroscope data as a CSV**:
+![Screenshot 2024-04-08 020010](https://github.com/CHIheb0022/Data-visualization-for-STM32/assets/99857162/cdd4f11a-dc5c-44f2-b8f3-a26b89ee2a7c)
+
 
 ## Notable Achievements
 

@@ -31,6 +31,7 @@ The repository is structured into separate methods, each representing a differen
 - **Acceleration & Gyroscope data as .img**:
 ![Acceleration & Gyroscope data](Example7.png)
 - **Acceleration & Gyroscope data as a CSV**:
+
 ![Screenshot 2024-04-08 020010](https://github.com/CHIheb0022/Data-visualization-for-STM32/assets/99857162/cdd4f11a-dc5c-44f2-b8f3-a26b89ee2a7c)
 
 
